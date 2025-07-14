@@ -1,0 +1,48 @@
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.bd {
+    border: 1px solid blue;
+}
+
+/*!* optional: define custom dark variant at top-level (no nested block) *!*/
+/*@custom-variant dark (.dark &);*/
+
+/* —— Shared light-mode scrollbar styles —— */
+@layer base {
+  .scrollbar-custom {
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--foreground) var(--card);
+  }
+  /* WebKit */
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: var(--card);
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: var(--foreground);
+    border: 2px solid var(--card);
+    border-radius: var(--radius);
+  }
+}
+
+/* —— Dark-mode overrides —— */
+.dark .scrollbar-custom {
+  scrollbar-color: var(--card-foreground) var(--background);
+}
+.dark .scrollbar-custom::-webkit-scrollbar-track {
+  background: var(--popover);
+}
+.dark .scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: var(--card-foreground);
+  border: 2px solid var(--popover);
+}
