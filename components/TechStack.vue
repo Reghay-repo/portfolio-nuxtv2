@@ -15,7 +15,7 @@
           <component
               :is="tech.component"
               :aria-label="tech.name"
-              class=" cursor-pointer text-4xl  text-muted-foreground transition-transform duration-300 hover:scale-110 "
+              class=" cursor-pointer text-5xl md:text-6xl  text-muted-foreground transition-transform duration-300 hover:scale-110 "
           />
         </TooltipTrigger>
         <TooltipContent>

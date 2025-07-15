@@ -1,6 +1,6 @@
 <!-- components/sections/Projects.vue -->
 <template>
-  <section class="py-20">
+  <section class="p-10 ">
     <div class="container">
       <div class="mb-12">
         <h2 class="text-3xl font-bold tracking-tight md:text-4xl">

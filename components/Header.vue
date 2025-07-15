@@ -4,7 +4,7 @@
     Use a semantic <section> tag for page sections.
     Consistent vertical padding is applied for spacing.
   -->
-  <section class="py-24 sm:py-32">
+  <section class="p-6 sm:py-32">
     <!--
       The standard Tailwind `container` class handles max-width and centering with appropriate padding.
       This replaces your custom .wrapper and px-4.

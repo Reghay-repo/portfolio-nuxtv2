@@ -1,6 +1,6 @@
 <!-- components/sections/Services.vue -->
 <template>
-  <section class="py-20">
+  <section class="p-4">
     <div class="container">
 
       <!-- 1. A clean, centered section header -->

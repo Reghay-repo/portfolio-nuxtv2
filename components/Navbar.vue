@@ -1,105 +1,122 @@
 <!-- components/layout/Navbar.vue -->
 <template>
-  <!--
-    The new nav bar:
-    - `sticky top-0 z-50`: Keeps it locked to the top.
-    - `w-full border-b`: Provides a full-width bottom border.
-    - `border-border/40 bg-background/95 backdrop-blur-sm`: This is the modern "glassmorphism" effect.
-      It uses theme variables for border and background, makes it semi-transparent, and blurs the content behind it.
-  -->
-  <header class="sticky  top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
+  <header class="sticky px-3 top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
     <div class="container flex h-16 items-center">
 
-      <!-- Logo remains largely the same, it was already well done. -->
-      <NuxtLink to="/" aria-label="Homepage" class="mr-6 cursor-pointer flex items-center">
+      <!-- Logo -->
+      <NuxtLink to="/" aria-label="Homepage" class="mr-6 flex items-center">
         <h1 class="text-2xl font-semibold text-foreground">
-          <!-- This now uses your purple! -->
           <span class="font-bold text-primary">Oussama</span>Re.
         </h1>
       </NuxtLink>
 
-      <!-- Main Navigation for Desktop -->
-      <!-- Hides on mobile (md:flex) and is visible on medium screens and up -->
+      <!-- Desktop Navigation -->
       <NavigationMenu class="hidden md:flex">
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <!--
-              This is the key to proper integration:
-              - `custom` prop tells NuxtLink to not render its own `<a>` tag.
-              - `v-slot="{ href, navigate, isActive }"` gives us direct access to Nuxt's state.
-              - We bind these values to the shadcn-vue components.
-            -->
-            <NuxtLink to="/about" class="cursor-pointer" custom v-slot="{ href, navigate, isActive }">
+          <NavigationMenuItem v-for="item in navigationItems.slice(1)" :key="item.to">
+            <NuxtLink :to="item.to" custom v-slot="{ href, navigate, isActive }">
               <NavigationMenuLink :active="isActive" :class="navigationMenuTriggerStyle()" @click="navigate">
-                About
-              </NavigationMenuLink>
-            </NuxtLink>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            <NuxtLink to="/bookmarks"  class="cursor-pointer" custom v-slot="{ href, navigate, isActive }">
-              <NavigationMenuLink :active="isActive" :class="navigationMenuTriggerStyle()" @click="navigate">
-                Bookmarks
+                {{ item.label }}
               </NavigationMenuLink>
             </NuxtLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
-      <!-- Right side of Navbar: Color Switcher and Mobile Menu -->
+      <!-- Right side: Color Switcher & Mobile Menu -->
       <div class="flex flex-1 items-center justify-end space-x-2">
-        <ColorSwitcher/>
+        <ColorSwitcher />
 
-        <!-- Mobile Menu using Sheet component -->
-        <!-- Visible only on mobile (md:hidden) -->
-        <Sheet>
-          <SheetTrigger as-child>
-            <Button variant="ghost" size="icon" class="md:hidden">
-              <svg stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                   class="h-5 w-5">
-                <path d="M3 5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                <path d="M3 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                <path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-              </svg>
-              <span class="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right">
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-            </SheetHeader>
-            <div class="flex flex-col space-y-4 mt-4">
-              <NuxtLink to="/about" class="hover:text-primary">About</NuxtLink>
-              <NuxtLink to="/bookmarks" class="hover:text-primary">Bookmarks</NuxtLink>
-            </div>
-          </SheetContent>
-        </Sheet>
+        <!-- ==== THE NEW & IMPROVED MOBILE MENU ==== -->
+        <div class="md:hidden">
+          <Sheet v-model:open="isMobileMenuOpen">
+            <SheetTrigger as-child>
+              <Button variant="ghost" size="icon" aria-label="Open menu">
+                <Icon name="lucide:menu" class="h-6 w-6 text-foreground" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent side="right" class="w-[300px] flex flex-col bg-background p-0">
+              <SheetHeader class="p-4 border-b border-border">
+                <NuxtLink to="/" aria-label="Homepage" @click="isMobileMenuOpen = false">
+                  <h1 class="text-xl font-semibold text-foreground">
+                    <span class="font-bold text-primary">Oussama</span>Re.
+                  </h1>
+                </NuxtLink>
+              </SheetHeader>
+
+              <div class="flex-1 overflow-y-auto p-4 space-y-2">
+                <!-- Main Navigation Links -->
+                <SheetClose as-child v-for="link in navigationItems" :key="`mobile-${link.to}`">
+                  <NuxtLink :to="link.to" :class="mobileLinkClasses">
+                    <Icon :name="link.icon" class="mr-3 h-5 w-5" />
+                    {{ link.label }}
+                  </NuxtLink>
+                </SheetClose>
+
+                <Separator class="my-4" />
+
+                <!-- Social Links Section -->
+                <div class="pt-2">
+                  <p class="text-xs font-medium uppercase text-muted-foreground mb-2 px-3">Get In Touch</p>
+                  <a v-for="link in socialLinks" :key="`social-${link.href}`" :href="link.href" target="_blank" rel="noopener noreferrer" :class="mobileLinkClasses">
+                    <Icon :name="link.icon" class="mr-3 h-5 w-5" />
+                    {{ link.label }}
+                  </a>
+                </div>
+              </div>
+
+              <div class="p-4    border-t border-border">
+                <ColorSwitcher />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
-
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle, // The essential style helper
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
+  SheetClose, // Import SheetClose
 } from '@/components/ui/sheet'
-import {Button} from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import ColorSwitcher from '@/components/ColorSwitcher.vue';
-</script>
 
-<!-- No <style> block needed! -->
+// --- STATE ---
+// This ref is crucial for controlling the sheet's open state manually.
+const isMobileMenuOpen = ref(false);
+
+// --- DATA ---
+// Single source of truth for navigation, now with icons.
+const navigationItems = [
+  { label: 'Home', to: '/', icon: 'lucide:home' },
+  { label: 'About', to: '/about', icon: 'lucide:user-round' },
+  { label: 'Projects', to: '/projects', icon: 'lucide:kanban-square' },
+  { label: 'Bookmarks', to: '/bookmarks', icon: 'lucide:bookmark' },
+];
+
+const socialLinks = [
+  { label: 'Email', href: 'mailto:oussama.reghay.dev@gmail.com', icon: 'lucide:mail' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/oussama-reghay', icon: 'lucide:linkedin' },
+  { label: 'GitHub', href: 'https://github.com/reghay-repo', icon: 'lucide:github' },
+];
+
+// --- STYLES ---
+// A reusable style string for all mobile links to keep them consistent.
+const mobileLinkClasses = "flex items-center rounded-md px-3 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent";
+</script>
