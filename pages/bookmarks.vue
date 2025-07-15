@@ -1,36 +1,69 @@
+<!-- pages/bookmarks.vue -->
 <template>
-    <main class="container max-w-2xl mx-auto  ">
-        <PageHeader class="mb-8" title="Bookmarks" :description="description" />
-        <ul class="space-y-2">
-            <li v-for="bookmark in bookmarks" :key="bookmark.id">
-                <a :href="bookmark.url" target="_blank"
-                    class="flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-white/10 p-2 rounded-lg -m-2 text-sm min-w-0">
-                    <img class="w-10 h-10" :src="getThumbnail(bookmark.url)" :alt="bookmark.label"
-                        :ui="{ rounded: 'rounded-md' }" />
-                    <p class="truncate text-gray-700 dark:text-gray-200">
-                        {{ bookmark.label }}
-                    </p>
-                    <span class="flex-1"></span>
-                    <span class="text-xs font-medium text-gray-400 dark:text-gray-600">
-                        {{ getHost(bookmark.url) }}
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </main>
+  <main class="container max-w-3xl mx-auto py-16 px-4">
+    <PageHeader class="mb-12" title="Bookmarks" :description="description" />
+
+    <ul class="space-y-2">
+      <li v-for="bookmark in bookmarks" :key="bookmark.id">
+        <!--
+          The hover effect is now our signature 'glow'.
+          The hover:bg-primary/5 class provides a subtle, on-brand highlight.
+        -->
+        <a
+          :href="bookmark.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 rounded-lg p-3 -m-3 transition-colors duration-300 hover:bg-primary/5"
+        >
+          <!--
+            The image is now wrapped in an Avatar component.
+            This provides a beautiful and robust fallback if the logo isn't found.
+          -->
+          <Avatar class="h-10 w-10 rounded-md">
+            <AvatarImage :src="`https://logo.clearbit.com/${getHost(bookmark.url)}`" :alt="bookmark.label" />
+            <AvatarFallback class="rounded-md bg-muted text-sm font-medium">
+              {{ getHost(bookmark.url).charAt(0).toUpperCase() }}
+            </AvatarFallback>
+          </Avatar>
+
+          <div class="flex-grow min-w-0">
+            <!-- The main label now uses text-foreground for primary importance. -->
+            <p class="truncate font-medium text-foreground">
+              {{ bookmark.label }}
+            </p>
+            <!-- The host URL now uses text-muted-foreground for secondary importance. -->
+            <p class="truncate text-xs text-muted-foreground">
+              {{ getHost(bookmark.url) }}
+            </p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import PageHeader from '~/components/PageHeader.vue';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/avatar'
+import { ref } from 'vue';
 
-const description =
-    "Awesome things I've found on the internet. This page is still WIP, I want to add search like bmrks.com";
+const description = "Awesome things I've found on the internet. I plan to add search and tagging functionality in the future.";
 useSeoMeta({
-    title: "Bookmarks | Oussama reghay",
-    description,
+  title: "Bookmarks | Oussama Reghay",
+  description,
 });
 
-const bookmarks = [
+// For better type safety
+interface Bookmark {
+  id: number;
+  label: string;
+  url: string;
+}
+const bookmarks = ref<Bookmark[]>([
     {
         id: 1,
         label: "Adam Wathan - Tailwind CSS Best Practice Patterns",
@@ -116,19 +149,17 @@ const bookmarks = [
         label: "VueUse - Collection of Vue Composition Utilities",
         url: "https://vueuse.org/",
     },
-];
-
-function getHost(url) {
+]);
+function getHost(url: string): string {
+  try {
     const parsedUrl = new URL(url);
     let host = parsedUrl.host;
     if (host.startsWith("www.")) {
-        host = host.substring(4);
+      host = host.substring(4);
     }
     return host;
-}
-
-function getThumbnail(url) {
-    const host = getHost(url);
-    return `https://logo.clearbit.com/${host}`;
+  } catch (error) {
+    return 'invalid.url';
+  }
 }
 </script>

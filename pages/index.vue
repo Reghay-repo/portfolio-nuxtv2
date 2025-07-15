@@ -4,27 +4,13 @@ const colorMode = useColorMode()
 </script>
 
 <template>
-  <div class="dark:bg-gray-900">
-    <div class="dark:text-white wrapper justify-center items-center flex ">
+    <div class="dark:text-white mx-auto container ">
       <Header />
-    </div>
-    <div class="dark:text-white wrapper justify-center flex ">
       <Projects />
-    </div>
-    <div class="dark:text-white wrapper justify-center flex ">
       <Services />
     </div>
-  </div>
 </template>
 
-<style scoped>
-body {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.8);
-}
+<style scoped lang="scss">
 
-.dark-mode body {
-  background-color: #091a28;
-  color: #ebf4f1;
-}
 </style>

@@ -1,112 +1,178 @@
+<!-- components/sections/Projects.vue -->
+<template>
+  <section class="py-20">
+    <div class="container">
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">
+          My Work & Projects
+        </h2>
+        <p class="mt-3 max-w-2xl text-lg text-muted-foreground">
+          A curated list of my professional contributions and personal explorations in software development.
+        </p>
+      </div>
+
+      <!-- Tabs component to switch between categories -->
+      <Tabs default-value="professional" class="w-full">
+        <TabsList class="grid w-full grid-cols-2 md:w-[400px]">
+          <TabsTrigger value="professional">Professional</TabsTrigger>
+          <TabsTrigger value="hobby">Hobby</TabsTrigger>
+        </TabsList>
+
+        <!-- Content for Professional Projects -->
+        <TabsContent value="professional" class="mt-8">
+          <div class="space-y-12">
+            <div
+              v-for="(projectsInYear, year) in groupedProfessionalProjects"
+              :key="year"
+              class="grid grid-cols-1 gap-8 md:grid-cols-[max-content_1fr]"
+            >
+              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>
+              <div class="flex flex-col gap-4 border-l pl-8">
+                <ProjectListItem v-for="project in projectsInYear" :key="project.name" :project="project" />
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <!-- Content for Hobby Projects -->
+        <TabsContent value="hobby" class="mt-8">
+          <div class="space-y-12">
+             <div
+              v-for="(projectsInYear, year) in groupedHobbyProjects"
+              :key="year"
+              class="grid grid-cols-1 gap-8 md:grid-cols-[max-content_1fr]"
+            >
+              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>
+              <div class="flex flex-col gap-4 border-l pl-8">
+                <ProjectListItem v-for="project in projectsInYear" :key="project.name" :project="project" />
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  </section>
+</template>
+
 <script setup lang="ts">
+import ProjectListItem from '~/components/ProjectListItem.vue';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
+import { computed, shallowRef } from 'vue';
+
 interface IProject {
   name: string;
   description: string;
-  image: string;
+  year: number;
+  category: 'professional' | 'hobby';
   tags?: string[];
   github?: string;
   link?: string;
 }
-
-const projects: IProject[] = [
+const projects = shallowRef<IProject[]>([
+  // --- Professional ---
   {
-    name: "Success Line - Landing page",
-    description:
-      "A landing page for a Digitale agency for marketing and developing IT Solutions ,this landing page was built with Nuxt for  better SEO optimisation and using tailwind for a clean and nice looking Ui ",
-    image: "/successline.png",
-    tags: ['Vue.js', 'Nuxt.js', 'Tailwindcss', 'DaisyUI'],
-    github: "https://github.com/Reghay-repo/",
-    link: "https://risk-management-68pu.onrender.com/auth/login",
+    year: 2024,
+    name: "Pintalent",
+    description: "A user-friendly platform to simplify creating professional, ATS-optimized CVs with customizable templates and content suggestions.",
+    category: 'professional',
+    tags: ['AI', 'CV', 'ATS', 'SaaS'],
+    link: "https://www.pintalent.io/"
   },
   {
-    name: "Governance, Risk and Compliance Tool",
-    description:
-      "A user-friendly platform that simplifies risk management and performance tracking. it's intuitive and powerful. Identify risks, track performance,    and stay informed with alerts and notifications",
-    image: "/risk.png",
-    tags: ['PostgreSQL', 'Vue.js', 'Nest.js', 'Vuetify'],
-    github: "https://github.com/Reghay-repo/oussama-portfolio",
-    link: "https://risk-management-68pu.onrender.com/auth/login",
+    year: 2024,
+    name: "Pinjob",
+    description: "Advanced tool to help users create refined, ATS-optimized CVs, explore career paths, and find perfectly adapted job offers.",
+    category: 'professional',
+    tags: ['Vue.js', 'Vuetify', 'Recruitment Tech'],
+    link: "https://pinjob.ma/"
   },
-
   {
+    year: 2024,
+    name: "Geekfact Cross-Platform Apps",
+    description: "Developed and maintained responsive mobile and web applications using Vue.js, Vuetify, and Quasar, focusing on performance and seamless functionality.",
+    category: 'professional',
+    tags: ['Vue.js', 'Vuetify', 'Quasar', 'Agile'],
+  },
+  {
+    year: 2023,
+    name: "Governance, Risk & Compliance Tool",
+    description: "Led frontend development for a platform to simplify risk management and performance tracking for FIZAZI & ASSOCIATES.",
+    category: 'professional',
+    tags: ['Vue.js', 'Nest.js', 'PostgreSQL', 'Vuetify'],
+  },
+    {
+    year: 2023,
     name: "Planfy",
-    description: "I developed the front end of the ERP SaaS tool, handling UI design, responsive layouts, and performance optimization.",
-    image: "/planfy2.png",
-    github: "#",
-    tags: ['Vue.js', 'Django', 'Vuetify', 'Python', 'PostgresSql', 'Javascript', 'Node.js'],
-    link: "https://www.planfy.nl/",
+    description: "Frontend development for an ERP SaaS tool (Pagie portal), focusing on UI design, responsive layouts, and performance optimization.",
+    category: 'professional',
+    tags: ['Vue.js', 'Vuetify', 'Flutter', 'Pinia'],
+
   },
   {
+    year: 2023,
+    name: "Sand Circle SARL Platform",
+    description: "Supervised frontend development with Nuxt.js and Pinia, and built scalable backend solutions with Nest.js and PostgreSQL.",
+    category: 'professional',
+    tags: ['Nuxt.js', 'Pinia', 'Nest.js', 'AWS', 'Docker'],
+  },
+    {
+    year: 2022,
     name: "Petalens",
-    description:
-      "Petalens is a Media Monitoring and Social Listening tool, developed by using Vuejs and Vuetify as the core UI technologies and Laravel, PostgresSql for the backend and deployed with Docker to the cloud.  ",
-    image: "/petalens.png",
-    github: "#",
-    tags: ['Docker', 'Vue.js', 'Nest.js', 'Vuetify', 'Laravel', 'PostgresSql',],
+    description: "Led full-stack development of a Media Monitoring and Social Listening tool, from a Laravel/Vue.js monolith to microservices.",
+    category: 'professional',
+    tags: ['Vue.js', 'Laravel', 'Docker', 'JSONAPI'],
     link: "https://www.petalens.com/",
   },
   {
-    name: "Easyom",
-    description:
-      "EasyOM's landing page showcases their various business services, including bookkeeping, tax preparation, payroll processing, and financial consulting. ",
-    image: "/easyom.png",
-    tags: ['Html', 'Javascript', 'CSS', 'Express.js', 'timber.js'],
-    github: "https://github.com/Reghay-repo/easy-home",
+    year: 2022,
+    name: "EasyOM",
+    description: "Landing page for a business services and consulting firm.",
+    category: 'professional',
+    tags: ['JavaScript', 'Express.js', 'Timber.js'],
     link: "https://easyom.up.railway.app/",
   },
   {
-    name: "DevBootcamp",
-    description:
-      "This dev bootcamp API provides developers with a comprehensive list of bootcamp locations and the various courses included, along with pricing information.",
-    image: "/bootcamp.png",
-    tags: ['Javascript', 'Express.js', 'Mondodb', 'MapQuest'],
-    github: "https://github.com/Reghay-repo/devbootcamp_api",
-    link: "#",
+    year: 2021,
+    name: "CHAKIR group Dashboard",
+    description: "Full-stack development of an internal dashboard using Vue.js and Laravel API, ensuring a reactive and transparent user experience.",
+    category: 'professional',
+    tags: ['Vue.js', 'Laravel', 'MySQL'],
   },
+  // --- Hobby ---
   {
+    year: 2021,
     name: "YouRent",
-    description:
-      "YouRent is a website for booking vacation rentals, apartments, and houses worldwide. It offers a wide range of rental options, detailed property information.",
-    tags: ['Html', 'Javascript', 'CSS', 'Express.js', 'Cloudinary', 'Mapbox'],
-    image: "/yourent.png",
+    description: "Full-stack vacation rental booking website. A personal project to explore map integrations and booking systems.",
+    category: 'hobby',
+    tags: ['Express.js', 'Cloudinary', 'Mapbox', 'MVC'],
     github: "https://github.com/Reghay-repo/you-rent",
-    link: "#",
   },
+]);
+// Helper function to group projects by year
+const groupProjectsByYear = (projects: IProject[]) => {
+  const sorted = [...projects].sort((a, b) => b.year - a.year);
+  return sorted.reduce((acc, project) => {
+    const year = project.year;
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(project);
+    return acc;
+  }, {} as Record<number, IProject[]>);
+};
 
-];
+// Computed property to get only professional projects, grouped by year
+const groupedProfessionalProjects = computed(() => {
+  const professional = projects.value.filter(p => p.category === 'professional');
+  return groupProjectsByYear(professional);
+});
 
+// Computed property to get only hobby projects, grouped by year
+const groupedHobbyProjects = computed(() => {
+  const hobby = projects.value.filter(p => p.category === 'hobby');
+  return groupProjectsByYear(hobby);
+});
 </script>
-
-<template>
-  <div>
-    <div class="mt-16 md:mt-24">
-      <div class="flex justify-center items-center text-base font-semibold text-gray-600 dark:text-gray-300">
-        <h2 class="text-center">Projects I worked on </h2>
-        <IconDoubleDown class="h-4 w-4" />
-      </div>
-      <div class="grid lg:grid-cols-3 md:grid-cols-2 w-full  justify-center  mt-5">
-        <div
-          class="card border  m-3 pb-4 h-auto  hover:border  hover:shadow-xl rounded-2xl  transition-shadow dark:shadow-amber-100 hover:cursor-pointer justify-center "
-          v-for="project in projects">
-          <img :src="`/imgs/${project.image}`" :alt="project.name" class="rounded-xl m-auto   my-4 mb-2" height="500px"
-            width="340px" >
-          <div class=" pt-4 justify-center flex-wrap  flex pb-2">
-            <span v-for="tag in project.tags"
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{
-                tag
-              }}</span>
-
-          </div>
-          <div class="px-6 ">
-            <h1 class="font-bold text-2xl mb-2">{{ project.name }}</h1>
-            <p class="dark:text-gray text-lg">{{ project.description }}</p>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</template>
-
-<style scoped></style>

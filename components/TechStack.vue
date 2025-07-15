@@ -1,32 +1,71 @@
-<script setup lang="ts">
+<!-- components/TechStack.vue -->
+<template>
+  <!--
+    The main container for the icons.
+    - We use `gap-6` for consistent, responsive spacing between icons.
+    - This replaces all the individual `m-2 md:m-4` classes.
+  -->
+  <div class="flex flex-wrap items-center justify-center  md:gap-8">
+
+    <!-- We now loop through our `techStack` array from the script. -->
+    <TooltipProvider v-for="tech in techStack" :key="tech.name">
+      <Tooltip>
+        <TooltipTrigger as-child>
+
+          <component
+              :is="tech.component"
+              :aria-label="tech.name"
+              class=" cursor-pointer text-4xl  text-muted-foreground transition-transform duration-300 hover:scale-110 "
+          />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{{ tech.name }}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+
+  </div>
+</template>
+
+<script lang="ts" setup>
+import {shallowRef} from 'vue';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
+  IconDocker,
+  IconExpress, IconFlutter,
+  IconJavascript,
+  IconLaravel, IconMUI,
+  IconNest,
+  IconNode,
+  IconNuxt, IconQuasar,
+  IconTailwind,
+  IconTs,
+  IconVuejs, IconVuetify
+} from "#components";
+
+
+const techStack = shallowRef([
+  {name: 'JavaScript', component: IconJavascript},
+  {name: 'TypeScript', component: IconTs},
+  {name: 'Vue.js', component: IconVuejs},
+  {name: 'Nuxt', component: IconNuxt},
+  {name: 'Tailwind CSS', component: IconTailwind},
+  {name: 'Node.js', component: IconNode},
+  {name: 'NestJS', component: IconNest},
+  {name: 'Express', component: IconExpress},
+  {name: 'Laravel', component: IconLaravel},
+  {name: 'Docker', component: IconDocker},
+  {name: 'Flutter', component: IconFlutter},
+  {name: 'Vuetify', component: IconVuetify},
+  {name: 'Quasar', component: IconQuasar},
+  {name: 'MUI', component: IconMUI},
+]);
 
 </script>
 
-<template>
-    <div class="mt-16 md:mt-24">
-        <div class="flex justify-center items-center text-base font-semibold text-gray-600 dark:text-gray-300">
-            <h2 class="text-center">Tech stack I use </h2>
-            <IconDoubleDown class="h-4 w-4" />
-        </div>
-
-        <div class="flex flex-wrap justify-center items-center text-4xl mt-5">
-            <IconJavascript class="m-2 md:m-4" />
-            <IconTailwind class="m-2 md:m-4" />
-            <IconVuejs class="m-2 md:m-4" />
-            <IconNuxt class="m-2 md:m-4" />
-            <IconNest class="m-2 md:m-4" />
-            <IconVuetify class="m-2 md:m-4" />
-            <IconExpress class="m-2 md:m-4" />
-            <IconLaravel class="m-2 md:m-4" />
-            <IconNode class="m-2 md:m-4" />
-            <IconQuasar class="m-2 md:m-4" />
-            <IconTs class="m-2 md:m-4" />
-            <IconDocker class="m-2 md:m-4" />
-            <IconMUI class="m-2 md:m-4" />
-            <IconFlutter class="m-2 md:m-4" />
-        </div>
-    </div>
-</template>
-
-
-<style scoped></style>
+<!-- No <style> block needed. -->

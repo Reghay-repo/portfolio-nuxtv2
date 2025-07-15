@@ -1,36 +1,9 @@
+<!-- app.vue -->
 <template>
-  <div class="flex flex-col h-screen justify-between dark:bg-gray-900">
-
-    <div class="dark:bg-gray-900">
-      <Navbar/>
-    </div>
-      <div>
-        <Button>Click me</Button>
-      </div>
-    <div class=" dark:bg-gray-900">
-      <NuxtPage/>
-    </div>
-
-    <div class="dark:bg-gray-900">
-      <Footer/>
-    </div>
-
-  </div>
+  <!-- Pick up whatever layout Nuxt chooses (default.vue unless you override) -->
+  <NuxtLayout />
 </template>
 
-<script lang="ts" setup>
-
-
+<script setup lang="ts">
+// (optional) global-level plugins or providers can go here
 </script>
-
-
-<style lang="scss">
-.wrapper {
-  @apply max-w-screen-xl mx-auto;
-}
-
-
-.wrapper-md {
-  @apply max-w-screen-md mx-auto;
-}
-</style>

@@ -12,7 +12,10 @@ export default defineNuxtConfig({
       colorMode: {
         classSuffix: ''              // → now <html class="dark">
     },
-    css: ['~/assets/css/main.css'],
+    css: [
+        '~/assets/css/tailwind.css',
+        '~/assets/css/base.css',
+    ],
     modules: [
         '@nuxt/fonts',
         '@nuxt/icon',

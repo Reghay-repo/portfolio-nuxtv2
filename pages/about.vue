@@ -1,63 +1,117 @@
+<!-- pages/about.vue -->
 <template>
-  <div>
-    <div class="wrapper mx-auto  px-72 flex-col justify-start dark:text-white   space-y-8">
-      <div class="text-4xl mb-3">
-        Hi there !
-      </div>
-      <div class="text-xl mb-3">
-        👋🏼 I’m Oussama, a Software engineer
-        <br>
-        🔺 Graduated from FSTT
-        <br>
-        🐍 I helps founders add value to society by crafting software using My expertise in Modern tech such as Vue |
-        Nuxt
-        |
-        Nest.js .
-        <br>
-        🇲🇦 I'm based in Tangier, Morocco.
-        <br>
-        🔨 I'm currently learning Flutter by building simple projects, I have strong passion for building mobile apps
-        <br>
-        ✍🏼 I Getting into blogging soon to share more about my journey as a developer.
-        <br>
-        👑 I'm into Playing video games sometimes and reading 📚
-        <br>
-      </div>
+  <!--
+    We use container max-w-3xl for optimal readability.
+    This is much better than px-72, which is too narrow on large screens.
+  -->
+  <div class="container max-w-3xl mx-auto py-16 px-4">
 
-      <div class="text-2xl mb-5">
-        What I Do Well
-      </div>
-      <div class="text-xl">
-        🚀 <span class="font-bold">Environment</span>: Git, GitHub, Agile (Scrum)
-        <br>
-        🚀<span class="font-bold">Code</span>: Javascript, Nest.js Framework, Laravel , Vue.js, Nuxt.
-        <br>
-        🚀 <span class="font-bold">Data</span>: Javascript,: PostgreSQL, MySQL
-      </div>
-      <div class="text-2xl mb-3">
-        Get In Touch
-      </div>
+    <!-- Main Title -->
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold tracking-tight text-foreground">
+        About Me
+      </h1>
+    </header>
 
-      <div class="text-xl mb-3">
-        Feel free to:
-        <br>
-        - DM me  ⚡ <a href="https://twitter.com/OReghay" target="_blank">Twitter</a>
-        <br>
-        - DM me  ⚡ <a href="https://www.linkedin.com/in/oussama-reghay" target="_blank">LinkedIn</a>
-        <br>
-        - 📧 me at
-        <a href="mailto:oussama.reghay.dev@gmail.com"  class="underline text-amber-50">
-          oussama.reghay.dev@gmail.com
-        </a>
+    <!-- Section 1: Introduction & Background -->
+    <section class="space-y-6 text-lg text-muted-foreground">
+      <p>
+        Hi there! 👋🏼 I’m Oussama, a Software Engineer based in Tangier, Morocco 🇲🇦, and a graduate of FSTT.
+      </p>
+      <p>
+        I specialize in helping founders add value to society by crafting high-quality software. My expertise lies in modern technologies such as
+        <span class="font-medium text-foreground">Vue.js</span>,
+        <span class="font-medium text-foreground">Nuxt</span>, and
+        <span class="font-medium text-foreground">Nest.js</span>.
+      </p>
+      <p>
+        Currently, I'm expanding my skillset into mobile development with <span class="font-medium text-foreground">Flutter</span>, driven by a strong passion for building cross-platform mobile apps.
+      </p>
+      <p>
+        When I'm not coding, I'm preparing to launch a blog to share my developer journey. I also enjoy reading 📚 and occasionally diving into video games.
+      </p>
+    </section>
+
+    <Separator class="my-12" />
+
+    <!-- Section 2: What I Do Well (Skills) -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-6">What I Do Well</h2>
+
+      <div class="space-y-6">
+        <!-- Skill Group 1: Code/Languages -->
+        <div>
+          <h3 class="text-lg font-medium mb-3 text-muted-foreground">Code & Frameworks</h3>
+          <div class="flex flex-wrap gap-3">
+            <Badge variant="secondary">JavaScript</Badge>
+            <Badge variant="secondary">Vue.js</Badge>
+            <Badge variant="secondary">Nuxt.js</Badge>
+            <Badge variant="secondary">Nest.js</Badge>
+            <Badge variant="secondary">Laravel</Badge>
+            <Badge variant="secondary">Flutter</Badge>
+          </div>
+        </div>
+
+        <!-- Skill Group 2: Data -->
+        <div>
+          <h3 class="text-lg font-medium mb-3 text-muted-foreground">Data</h3>
+          <div class="flex flex-wrap gap-3">
+            <Badge variant="secondary">PostgreSQL</Badge>
+            <Badge variant="secondary">MySQL</Badge>
+          </div>
+        </div>
+
+        <!-- Skill Group 3: Environment & Tools -->
+         <div>
+          <h3 class="text-lg font-medium mb-3 text-muted-foreground">Environment</h3>
+          <div class="flex flex-wrap gap-3">
+            <Badge variant="secondary">Git</Badge>
+            <Badge variant="secondary">Docker</Badge>
+            <Badge variant="secondary">GitHub</Badge>
+            <Badge variant="secondary">Agile (Scrum)</Badge>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <Separator class="my-12" />
+
+    <!-- Section 3: Get In Touch -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-6">Get In Touch</h2>
+      <p class="text-lg text-muted-foreground mb-4">
+        Feel free to reach out if you want to discuss a project or just say hello.
+      </p>
+
+      <div class="flex flex-col space-y-2">
+        <!-- Using Button variant="link" and Lucide icons for clean, professional links -->
+        <Button as-child variant="link" class="justify-start p-0 h-auto text-lg">
+          <a href="mailto:oussama.reghay.dev@gmail.com">
+            <Icon name="lucide:mail" class="mr-3 h-5 w-5 text-primary" />
+            oussama.reghay.dev@gmail.com
+          </a>
+        </Button>
+
+        <Button as-child variant="link" class="justify-start p-0 h-auto text-lg">
+          <a href="https://www.linkedin.com/in/oussama-reghay" target="_blank" rel="noopener noreferrer">
+            <Icon name="lucide:linkedin" class="mr-3 h-5 w-5 text-primary" />
+            LinkedIn
+          </a>
+        </Button>
+
+        <Button as-child variant="link" class="justify-start p-0 h-auto text-lg">
+          <a href="https://twitter.com/OReghay" target="_blank" rel="noopener noreferrer">
+            <Icon name="lucide:twitter" class="mr-3 h-5 w-5 text-primary" />
+            Twitter
+          </a>
+        </Button>
+      </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 </script>
-
-<style scoped>
-
-</style>

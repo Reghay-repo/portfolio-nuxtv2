@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper flex flex-wrap text-base text-center m-3 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+  <div class=" flex flex-wrap text-center m-3  ">
     <a aria-label="Github" class="social-link hover:text-primary mx-3" href="https://github.com/reghay-repo">
       <IconGithub class="h-6 w-6" />
     </a>
