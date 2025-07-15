@@ -106,7 +106,7 @@ const isMobileMenuOpen = ref(false);
 const navigationItems = [
   { label: 'Home', to: '/', icon: 'lucide:home' },
   { label: 'About', to: '/about', icon: 'lucide:user-round' },
-  { label: 'Projects', to: '/projects', icon: 'lucide:kanban-square' },
+  // { label: 'Projects', to: '/projects', icon: 'lucide:kanban-square' },
   { label: 'Bookmarks', to: '/bookmarks', icon: 'lucide:bookmark' },
 ];
 
