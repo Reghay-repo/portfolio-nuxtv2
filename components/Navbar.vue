@@ -13,7 +13,7 @@
       <!-- Desktop Navigation -->
       <NavigationMenu class="hidden md:flex">
         <NavigationMenuList>
-          <NavigationMenuItem v-for="item in navigationItems.slice(1)" :key="item.to">
+          <NavigationMenuItem class="cursor-pointer" v-for="item in navigationItems.slice(1)" :key="item.to">
             <NuxtLink :to="item.to" custom v-slot="{ href, navigate, isActive }">
               <NavigationMenuLink :active="isActive" :class="navigationMenuTriggerStyle()" @click="navigate">
                 {{ item.label }}
@@ -47,7 +47,7 @@
 
               <div class="flex-1 overflow-y-auto p-4 space-y-2">
                 <!-- Main Navigation Links -->
-                <SheetClose as-child v-for="link in navigationItems" :key="`mobile-${link.to}`">
+                <SheetClose as-child  v-for="link in navigationItems" :key="`mobile-${link.to}`">
                   <NuxtLink :to="link.to" :class="mobileLinkClasses">
                     <Icon :name="link.icon" class="mr-3 h-5 w-5" />
                     {{ link.label }}
