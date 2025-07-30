@@ -26,7 +26,7 @@
               :key="year"
               class="grid grid-cols-1 gap-8 md:grid-cols-[max-content_1fr]"
             >
-              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>
+<!--              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>-->
               <div class="flex flex-col gap-4 border-l pl-8">
                 <ProjectListItem v-for="project in projectsInYear" :key="project.name" :project="project" />
               </div>
@@ -42,7 +42,7 @@
               :key="year"
               class="grid grid-cols-1 gap-8 md:grid-cols-[max-content_1fr]"
             >
-              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>
+<!--              <div class="font-semibold text-muted-foreground md:text-right">{{ year }}</div>-->
               <div class="flex flex-col gap-4 border-l pl-8">
                 <ProjectListItem v-for="project in projectsInYear" :key="project.name" :project="project" />
               </div>
